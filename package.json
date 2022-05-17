@@ -7,7 +7,7 @@
     "lint": "eslint --fix",
     "test": "jest --watchAll --detectOpenHandles --runInband",
     "start": "node src/index.js",
-    "dev": "nodemone src/index.js"
+    "dev": "nodemon src/index.js"
   },
   "author": "Ekene Nwobodo",
   "license": "ISC",
