@@ -1,5 +1,5 @@
 const globalErrorHandler = require("./error");
-const { createInventory, getAllInventory } = require("./inventory");
+const { createInventory, getAllInventory,getOneInventory } = require("./inventory");
 const { createCategory, getAllCategory } = require("./category");
 const { createStatus, getAllStatus } = require("./status");
 
@@ -11,4 +11,5 @@ module.exports = {
   getAllCategory,
   createStatus,
   getAllStatus,
+  getOneInventory
 };

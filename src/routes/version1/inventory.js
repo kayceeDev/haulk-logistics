@@ -9,7 +9,7 @@ router
   .post(inventoryControllers.createInventory);
 
   router.route("/:id")
-  .get()
+  .get(inventoryControllers.getOneInventory)
   .patch()
   .delete()
 
