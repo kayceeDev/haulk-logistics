@@ -1,23 +1,24 @@
 const globalErrorHandler = require("./error");
-const {
-  createInventory,
-  getAllInventory,
-  getOneInventory,
-  updateInventory,
-  deleteInventory,
-} = require("./inventory");
-const { createCategory, getAllCategory } = require("./category");
-const { createStatus, getAllStatus } = require("./status");
+const inventoryControllers = require("./inventory");
+const shipmentControllers = require('./shipment')
+const categoryControllers = require('./category')
+const statusControllers = require ('./status')
+// const { createCategory, getAllCategory } = require("./category");
+// const { createStatus, getAllStatus } = require("./status");
 
 module.exports = {
   globalErrorHandler,
-  createCategory,
-  getAllCategory,
-  createStatus,
-  getAllStatus,
-  createInventory,
-  getAllInventory,
-  getOneInventory,
-  updateInventory,
-  deleteInventory
+  inventoryControllers,
+  shipmentControllers,
+  categoryControllers,
+  statusControllers,
+  // createCategory,
+  // getAllCategory,
+  // createStatus,
+  // getAllStatus,
+  // createInventory,
+  // getAllInventory,
+  // getOneInventory,
+  // updateInventory,
+  // deleteInventory
 };
