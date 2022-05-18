@@ -9,8 +9,7 @@ router
   .post(categoryControllers.createCategory);
 
   router.route("/:id")
-  .get()
-  .patch()
-  .delete()
+  .patch(categoryControllers.updateCategory)
+  .delete(categoryControllers.deleteCategory)
 
   module.exports = router

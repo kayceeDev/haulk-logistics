@@ -12,13 +12,13 @@ const shipmentSchema = new mongoose.Schema({
   },
   destinationLocation: {
     type: String,
-    maxlength: 10,
+    minlength: 5,
     trim: true,
     required: [true, "Add inventory destination"],
   },
   startLocation: {
     type: String,
-    maxlength: 10,
+    minlength: 5,
     trim: true,
     required: [true, "Add inventory pickup location"],
   },

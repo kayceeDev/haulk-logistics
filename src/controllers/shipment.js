@@ -8,8 +8,8 @@ const { AppError } = require("../utils");
 const createShipment = asyncHandler(async (req, res, next) => {
   const { name, startLocation, destinationLocation, inventory } = req.body;
 
-  const shipementExist = await inventoryModel.findOne({ name });
-  if (shipementExist) {
+  const shipmentExist = await shipmentModel.findOne({ name });
+  if (shipmentExist) {
     return next(new AppError("shipment already exists", 404));
   }
   shipmentData = {
@@ -20,7 +20,7 @@ const createShipment = asyncHandler(async (req, res, next) => {
   };
   newShipment = await new shipmentModel(shipmentData).save();
   const statusData = {
-    inventoryId: inventory._id,
+    inventoryId: inventory,
     status:"assigned"
   };
   await new statusModel(statusData).save();
@@ -33,12 +33,12 @@ const getAllShipments = asyncHandler(async (req, res, next) => {
 });
 
 const getOneShipment = asyncHandler(async (req, res, next) => {
-  const shipment = await inventoryModel
+  const shipment = await shipmentModel
     .findById(req.params.id)
     .populate("inventory")
     .select("-__v");
   if (!shipment) {
-    return next(new AppError("No inventory found with that ID", 404));
+    return next(new AppError("No shipment found with that ID", 404));
   }
   return createSendData(shipment, 200, res);
 });

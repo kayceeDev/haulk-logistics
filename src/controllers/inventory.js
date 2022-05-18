@@ -39,11 +39,13 @@ const createInventory = asyncHandler(async (req, res, next) => {
   }
 });
 
+// get all inventory
 const getAllInventory = asyncHandler(async (req, res, next) => {
   const inventories = await inventoryModel.find();
   return createSendData(inventories, 200, res);
 });
 
+// get one inventory
 const getOneInventory = asyncHandler(async (req, res, next) => {
   const inventory = await inventoryModel
     .findById(req.params.id)
@@ -55,6 +57,7 @@ const getOneInventory = asyncHandler(async (req, res, next) => {
   return createSendData(inventory, 200, res);
 });
 
+//update inventory
 const updateInventory = asyncHandler(async (req, res, next) => {
   // Filtered out unwanted fields names that are not allowed to be updated
   const filteredBody = filterObj(req.body, "name", "unit_price", "quantity");
@@ -76,6 +79,7 @@ const updateInventory = asyncHandler(async (req, res, next) => {
   return createSendData(updatedInventory, 200, res);
 });
 
+// delete inventory
 const deleteInventory = asyncHandler(async (req, res, next) => {
   const inventory = await inventoryModel.findByIdAndDelete(req.params.id);
   if (!inventory) {
