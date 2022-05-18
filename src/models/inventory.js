@@ -1,4 +1,6 @@
 const mongoose = require("mongoose");
+// const { categoryModel } = require(".");
+// const { AppError } = require("../utils");
 
 const inventorySchema = new mongoose.Schema(
   {
@@ -16,12 +18,27 @@ const inventorySchema = new mongoose.Schema(
       type: Number,
       required: [true, "Enter a unit price"],
     },
+    category: {
+      type: mongoose.Types.ObjectId,
+      ref: "Category",
+      required: true,
+    },
   },
   {
     toJSON: { virtuals: true },
     toObject: { virtuals: true },
   }
 );
+
+// inventorySchema.pre("save", async function (next) {
+//   const newCategory = await categoryModel.find({name: this.category });
+//   if (!newCategory) {
+//     return next(new AppError("category doesn't exist", 404));
+//   }
+//   this.category = newCategory._id;
+//   next();
+// });
+
 inventorySchema.virtual("total_price").get(function () {
   return this.unit_price * this.quantity;
 });
@@ -31,16 +48,5 @@ inventorySchema.virtual("status", {
   foreignField: "inventoryId",
   localField: "_id",
 });
-
-inventorySchema.virtual("category", {
-  ref: "Category",
-  foreignField: "inventoryId",
-  localField: "_id",
-});
-
-// userSchema.pre("save", async function (next) {
-//   this.total_price = parseInt(this.quantity * this.price);
-//   next();
-// });
 
 module.exports = mongoose.model("Inventory", inventorySchema);

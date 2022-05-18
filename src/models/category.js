@@ -4,13 +4,10 @@ const categorySchema = new mongoose.Schema({
   name: {
     type: String,
     required: [true, "category"],
-  },
-  inventoryId: [
-    {
-      type: mongoose.Types.ObjectId,
-      ref: "Inventory",
-    },
-  ],
+    unique:true,
+    trim:true,
+    enum:["software","hardware","electronics"]
+  }
 });
 
 // categorySchema.pre(/^find/, function (next) {

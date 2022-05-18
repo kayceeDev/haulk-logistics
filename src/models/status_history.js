@@ -13,12 +13,12 @@ const statusSchema = new mongoose.Schema({
   },
 });
 
-statusSchema.pre(/^find/, function (next) {
-  this.populate({
-    path: "inventoryId",
-    select: "name quantity unit_price",
-  });
-  next();
-});
+// statusSchema.pre(/^find/, function (next) {
+//   this.populate({
+//     path: "inventoryId",
+//     select: "-name -quantity -unit_price -_v",
+//   });
+//   next();
+// });
 
 module.exports = mongoose.model("Status", statusSchema);

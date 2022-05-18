@@ -10,7 +10,7 @@ router
 
   router.route("/:id")
   .get(inventoryControllers.getOneInventory)
-  .patch()
-  .delete()
+  .patch(inventoryControllers.updateInventory)
+  .delete(inventoryControllers.deleteInventory)
 
   module.exports = router
