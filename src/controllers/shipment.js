@@ -12,6 +12,10 @@ const createShipment = asyncHandler(async (req, res, next) => {
   if (shipmentExist) {
     return next(new AppError("shipment already exists", 404));
   }
+  const inventoryExist = await inventoryModel.findById(inventory);
+  if (!inventoryExist) {
+    return next(new AppError("inventory with ID doesn't exists", 404));
+  }
   shipmentData = {
     name,
     startLocation,
@@ -21,7 +25,7 @@ const createShipment = asyncHandler(async (req, res, next) => {
   newShipment = await new shipmentModel(shipmentData).save();
   const statusData = {
     inventoryId: inventory,
-    status:"assigned"
+    status: "assigned",
   };
   await new statusModel(statusData).save();
   return createSendData(newShipment, 201, res);
@@ -45,7 +49,13 @@ const getOneShipment = asyncHandler(async (req, res, next) => {
 
 const updateShipment = asyncHandler(async (req, res, next) => {
   // Filtered out unwanted fields names that are not allowed to be updated
-  const filteredBody = filterObj(req.body, "name", "startLocation", "destinationLocation", "inventory");
+  const filteredBody = filterObj(
+    req.body,
+    "name",
+    "startLocation",
+    "destinationLocation",
+    "inventory"
+  );
 
   // Update user document
   const updatedShipment = await shipmentModel.findByIdAndUpdate(
